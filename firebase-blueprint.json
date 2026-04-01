@@ -1,0 +1,97 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile information",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "streakDays": { "type": "integer" },
+        "lastLoginDate": { "type": "string", "format": "date-time" },
+        "totalPoints": { "type": "integer" },
+        "lastQuizCompletedDate": { "type": "string", "format": "date-time" },
+        "totalAttempted": { "type": "integer" },
+        "totalCorrect": { "type": "integer" },
+        "masteredTopics": { "type": "array", "items": { "type": "string" } },
+        "level": { "type": "integer" },
+        "xp": { "type": "integer" },
+        "earnedBadges": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["uid", "email", "createdAt", "streakDays", "lastLoginDate", "totalPoints", "totalAttempted", "totalCorrect", "masteredTopics", "level", "xp", "earnedBadges"]
+    },
+    "ExamPaper": {
+      "title": "ExamPaper",
+      "description": "A generated MDCAT exam paper",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "subject": { "type": "string" },
+        "topic": { "type": "string" },
+        "mcqs": {
+          "type": "array",
+          "items": { "$ref": "MCQ" }
+        },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "isPublic": { "type": "boolean" }
+      },
+      "required": ["id", "userId", "subject", "topic", "mcqs", "createdAt"]
+    },
+    "MCQ": {
+      "title": "MCQ",
+      "description": "A single multiple choice question",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "question": { "type": "string" },
+        "options": {
+          "type": "object",
+          "properties": {
+            "A": { "type": "string" },
+            "B": { "type": "string" },
+            "C": { "type": "string" },
+            "D": { "type": "string" }
+          }
+        },
+        "answer": { "type": "string", "enum": ["A", "B", "C", "D"] },
+        "explanation": { "type": "string" },
+        "pastPaperReference": { "type": "string" },
+        "isRepeatedConcept": { "type": "boolean" }
+      },
+      "required": ["id", "question", "options", "answer", "explanation", "pastPaperReference", "isRepeatedConcept"]
+    },
+    "Feedback": {
+      "title": "Feedback",
+      "description": "User feedback or issue reports",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "userEmail": { "type": "string" },
+        "type": { "type": "string", "enum": ["issue", "suggestion", "other"] },
+        "mcqId": { "type": "string" },
+        "content": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "type", "content", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profiles"
+    },
+    "/users/{userId}/papers/{paperId}": {
+      "schema": "ExamPaper",
+      "description": "Saved exam papers for a user"
+    },
+    "/feedback/{feedbackId}": {
+      "schema": "Feedback",
+      "description": "User feedback"
+    }
+  }
+}

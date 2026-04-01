@@ -1,0 +1,136 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // ===============================================================
+    // Assumed Data Model
+    // ===============================================================
+    //
+    // Collection: /users/{userId}
+    // Document ID: userId
+    // Fields:
+    //   - uid: string (required)
+    //   - email: string (required)
+    //   - displayName: string (optional)
+    //   - photoURL: string (optional)
+    //   - createdAt: timestamp (required)
+    //
+    // Collection: /users/{userId}/papers/{paperId}
+    // Document ID: paperId
+    // Fields:
+    //   - id: string (required)
+    //   - userId: string (required)
+    //   - subject: string (required)
+    //   - topic: string (required)
+    //   - mcqs: list (required)
+    //   - createdAt: timestamp (required)
+    //
+    // ===============================================================
+
+    // ===============================================================
+    // Helper Functions
+    // ===============================================================
+    
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+    
+    function hasRequiredFields(fields) {
+      return request.resource.data.keys().hasAll(fields);
+    }
+    
+    function hasOnlyAllowedFields(fields) {
+      return request.resource.data.keys().hasOnly(fields);
+    }
+
+    function isValidEmail(email) {
+      return email is string && email.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$");
+    }
+
+    // ===============================================================
+    // Domain Validators
+    // ===============================================================
+
+    function isValidUser(data) {
+      return hasRequiredFields(['uid', 'email', 'createdAt', 'streakDays', 'lastLoginDate', 'totalPoints', 'totalAttempted', 'totalCorrect', 'masteredTopics', 'level', 'xp', 'earnedBadges']) &&
+             data.uid is string && data.uid.size() > 0 &&
+             isValidEmail(data.email) &&
+             data.createdAt is timestamp &&
+             data.streakDays is int &&
+             data.lastLoginDate is timestamp &&
+             data.totalPoints is int &&
+             data.totalAttempted is int &&
+             data.totalCorrect is int &&
+             data.masteredTopics is list &&
+             data.level is int &&
+             data.xp is int &&
+             data.earnedBadges is list &&
+             (!('lastQuizCompletedDate' in data) || data.lastQuizCompletedDate is timestamp);
+    }
+
+    function isValidPaper(data) {
+      return hasRequiredFields(['id', 'userId', 'subject', 'topic', 'mcqs', 'createdAt']) &&
+             data.id is string && data.id.size() > 0 &&
+             data.userId is string && data.userId.size() > 0 &&
+             data.subject is string &&
+             data.topic is string &&
+             data.mcqs is list &&
+             data.createdAt is timestamp &&
+             (!('isPublic' in data) || data.isPublic is bool);
+    }
+
+    function isValidFeedback(data) {
+      return hasRequiredFields(['id', 'type', 'content', 'createdAt']) &&
+             data.id is string && data.id.size() > 0 &&
+             data.type in ['issue', 'suggestion', 'other'] &&
+             data.content is string && data.content.size() > 0 && data.content.size() < 5000 &&
+             data.createdAt is timestamp &&
+             (!('userId' in data) || data.userId is string) &&
+             (!('userEmail' in data) || data.userEmail is string) &&
+             (!('mcqId' in data) || data.mcqId is string);
+    }
+
+    function isAdmin() {
+      return isAuthenticated() && 
+             (request.auth.token.email == "ma6842908@gmail.com" || 
+              request.auth.uid == "VBfjaH4q8MXMK7GKl2Is4B3UU0i1");
+    }
+
+    // ===============================================================
+    // Rules
+    // ===============================================================
+
+    match /users/{userId} {
+      // Allow user to read/write their own document
+      allow read: if isAuthenticated() && (request.auth.uid == userId || isAdmin());
+      allow create: if isAuthenticated() && (request.auth.uid == userId || isAdmin()) && isValidUser(request.resource.data);
+      allow update: if isAuthenticated() && (request.auth.uid == userId || isAdmin()) && isValidUser(request.resource.data);
+      
+      // Papers collection
+      match /papers/{paperId} {
+        // Allow owner or admin full access
+        allow read: if isAuthenticated() && (request.auth.uid == userId || isAdmin());
+        allow create: if isAuthenticated() && (request.auth.uid == userId || isAdmin()) && isValidPaper(request.resource.data);
+        allow update: if isAuthenticated() && (request.auth.uid == userId || isAdmin()) && isValidPaper(request.resource.data);
+        allow delete: if isAuthenticated() && (request.auth.uid == userId || isAdmin());
+        
+        // Allow anyone to get a public paper (but not list them all)
+        allow get: if resource != null && resource.data.get('isPublic', false) == true;
+      }
+    }
+
+    match /feedback/{feedbackId} {
+      allow create: if isValidFeedback(request.resource.data);
+      allow read: if isAdmin();
+    }
+
+    // Default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
