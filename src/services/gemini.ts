@@ -1,4 +1,46 @@
+import { GoogleGenAI, Type } from "@google/genai";
 import { MCQ, Subject, Difficulty, UserAnswer, ExamAnalysis } from "../types";
+
+// Initialize Gemini AI lazily
+let aiInstance: GoogleGenAI | null = null;
+
+function getAI() {
+  if (!aiInstance) {
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) {
+      throw new Error("Gemini API Key is missing. Please ensure it is set in the environment.");
+    }
+    aiInstance = new GoogleGenAI({ apiKey });
+  }
+  return aiInstance;
+}
+
+const MCQ_SCHEMA = {
+  type: Type.ARRAY,
+  items: {
+    type: Type.OBJECT,
+    properties: {
+      id: { type: Type.STRING },
+      question: { type: Type.STRING },
+      options: {
+        type: Type.OBJECT,
+        properties: {
+          A: { type: Type.STRING },
+          B: { type: Type.STRING },
+          C: { type: Type.STRING },
+          D: { type: Type.STRING },
+        },
+        required: ["A", "B", "C", "D"],
+      },
+      answer: { type: Type.STRING, enum: ["A", "B", "C", "D"] },
+      explanation: { type: Type.STRING },
+      pastPaperReference: { type: Type.STRING },
+      isRepeatedConcept: { type: Type.BOOLEAN },
+      topic: { type: Type.STRING },
+    },
+    required: ["id", "question", "options", "answer", "explanation", "pastPaperReference", "isRepeatedConcept", "topic"],
+  },
+};
 
 export async function generateMCQs(subject: Subject, topic: string, difficulty: Difficulty): Promise<MCQ[]> {
   const prompt = `You are an expert MDCAT exam paper setter in Pakistan with deep knowledge of past papers (UHS, SZABMU, DUHS, PMC/PMDC).
@@ -70,38 +112,43 @@ Output format (JSON):
 }`;
 
   try {
-    const response = await fetch("/api/gemini/analyze", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ prompt }),
+    const ai = getAI();
+    const response = await ai.models.generateContent({
+      model: "gemini-3-flash-preview",
+      contents: prompt,
+      config: {
+        responseMimeType: "application/json",
+      },
     });
 
-    const data = await response.json();
-    if (!response.ok) {
-      throw new Error(data.error || "Failed to analyze results via backend");
+    if (!response.text) {
+      throw new Error("No response from AI");
     }
 
-    return data;
+    return JSON.parse(response.text);
   } catch (error: any) {
     console.error("Error analyzing results:", error);
     throw error;
   }
 }
 
-async function executeGeneration(prompt: string): Promise<MCQ[]> {
+async function executeGeneration(prompt: string, schema: any = MCQ_SCHEMA): Promise<MCQ[]> {
   try {
-    const response = await fetch("/api/gemini/generate", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ prompt }),
+    const ai = getAI();
+    const response = await ai.models.generateContent({
+      model: "gemini-3-flash-preview",
+      contents: prompt,
+      config: {
+        responseMimeType: "application/json",
+        responseSchema: schema,
+      },
     });
 
-    const data = await response.json();
-    if (!response.ok) {
-      throw new Error(data.error || "Failed to generate MCQs via backend");
+    if (!response.text) {
+      throw new Error("No response from AI");
     }
 
-    return data;
+    return JSON.parse(response.text);
   } catch (error: any) {
     console.error("Error generating MCQs:", error);
     throw error;
@@ -113,25 +160,13 @@ export async function getSuggestedTopics(subject: Subject): Promise<string[]> {
 Return only the list of topics as a simple array of strings. 
 Focus on topics that appear frequently in UHS, SZABMU, and PMDC past papers.`;
 
+  const schema = {
+    type: Type.ARRAY,
+    items: { type: Type.STRING },
+  };
+
   try {
-    const response = await fetch("/api/gemini/generate", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ 
-        prompt,
-        schema: {
-          type: "ARRAY",
-          items: { type: "STRING" },
-        }
-      }),
-    });
-
-    const data = await response.json();
-    if (!response.ok) {
-      throw new Error(data.error || "Failed to fetch suggested topics via backend");
-    }
-
-    return data;
+    return await executeGeneration(prompt, schema) as unknown as string[];
   } catch (error: any) {
     console.error("Error fetching suggested topics:", error);
     throw error;
