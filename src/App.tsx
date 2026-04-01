@@ -289,8 +289,10 @@ export default function App() {
       try {
         const suggestions = await getSuggestedTopics(subject);
         setSuggestedTopics(suggestions);
-      } catch (err) {
+        setError(null); // Clear error if successful
+      } catch (err: any) {
         console.error("Error fetching suggestions:", err);
+        setError(err.message || "Failed to fetch suggested topics");
       } finally {
         setLoadingSuggestions(false);
       }
@@ -372,8 +374,8 @@ export default function App() {
         setTimerActive(true);
       }
       setMcqs(results);
-    } catch (err) {
-      setError('Failed to generate MCQs. Please check your API key or try again.');
+    } catch (err: any) {
+      setError(err.message || 'Failed to generate MCQs. Please check your API key or try again.');
       console.error(err);
     } finally {
       setLoading(false);
@@ -519,9 +521,9 @@ export default function App() {
         await handleStreakCheck(userProfile, true);
         await handleGamificationCheck(userProfile, userAnswers);
       }
-    } catch (err) {
+    } catch (err: any) {
       console.error("Analysis error:", err);
-      setError("Failed to analyze results. Please try again.");
+      setError(err.message || "Failed to analyze results. Please try again.");
     } finally {
       setAnalyzing(false);
     }
@@ -677,6 +679,45 @@ export default function App() {
     document.body.removeChild(link);
     URL.revokeObjectURL(url);
   };
+
+  if (error && error.includes("Gemini API Key is missing")) {
+    return (
+      <div className={`min-h-screen flex items-center justify-center p-4 ${isDarkMode ? 'bg-slate-950 text-slate-50' : 'bg-slate-50 text-slate-900'}`}>
+        <div className="max-w-md w-full bg-white dark:bg-slate-900 p-8 rounded-3xl shadow-xl border border-slate-200 dark:border-slate-800 text-center">
+          <div className="bg-amber-100 dark:bg-amber-900/30 p-4 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-6">
+            <AlertTriangle className="w-10 h-10 text-amber-600 dark:text-amber-400" />
+          </div>
+          <h2 className="text-2xl font-bold mb-4">API Setup Required</h2>
+          <p className="text-slate-600 dark:text-slate-400 mb-8 leading-relaxed">
+            To use the AI features of MDCAT Master, you need to add your Gemini API key to the platform settings.
+          </p>
+          
+          <div className="space-y-4 text-left mb-8">
+            <div className="flex items-start space-x-3">
+              <div className="bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 font-bold text-xs">1</div>
+              <p className="text-sm">Go to <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer" className="text-indigo-600 hover:underline font-semibold">Google AI Studio</a> and copy your API key.</p>
+            </div>
+            <div className="flex items-start space-x-3">
+              <div className="bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 font-bold text-xs">2</div>
+              <p className="text-sm">Open the <strong>Secrets</strong> or <strong>Settings</strong> panel in this AI Studio window.</p>
+            </div>
+            <div className="flex items-start space-x-3">
+              <div className="bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 font-bold text-xs">3</div>
+              <p className="text-sm">Add a secret named <strong>GEMINI_API_KEY</strong> and paste your key.</p>
+            </div>
+          </div>
+          
+          <button 
+            onClick={() => window.location.reload()}
+            className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-xl transition-all flex items-center justify-center space-x-2"
+          >
+            <RefreshCw className="w-5 h-5" />
+            <span>I've added the key, Refresh</span>
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className={`min-h-screen ${isDarkMode ? 'dark bg-slate-950 text-slate-50' : 'bg-slate-50 text-slate-900'} font-sans transition-colors duration-300`}>

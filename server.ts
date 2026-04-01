@@ -13,9 +13,17 @@ app.use(express.json());
 
 // Helper to get Gemini AI instance lazily
 function getAI() {
-  const apiKey = process.env.GEMINI_API_KEY || process.env.API_KEY;
-  if (!apiKey || apiKey === "MY_GEMINI_API_KEY") {
-    throw new Error("GEMINI_API_KEY is not configured. Please set it in the Secrets panel.");
+  // Check multiple possible environment variable names used in different environments
+  const apiKey = process.env.GEMINI_API_KEY || 
+                 process.env.API_KEY || 
+                 process.env.GOOGLE_API_KEY ||
+                 process.env.GOOGLE_GENERATIVE_AI_API_KEY;
+
+  if (!apiKey || apiKey === "MY_GEMINI_API_KEY" || apiKey === "") {
+    throw new Error(
+      "Gemini API Key is missing. Please go to the 'Secrets' or 'Settings' panel in AI Studio " +
+      "and add a secret named 'GEMINI_API_KEY' with your API key from https://aistudio.google.com/app/apikey"
+    );
   }
   return new GoogleGenAI({ apiKey });
 }

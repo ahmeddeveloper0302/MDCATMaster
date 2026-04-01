@@ -76,12 +76,13 @@ Output format (JSON):
       body: JSON.stringify({ prompt }),
     });
 
+    const data = await response.json();
     if (!response.ok) {
-      throw new Error("Failed to analyze results via backend");
+      throw new Error(data.error || "Failed to analyze results via backend");
     }
 
-    return await response.json();
-  } catch (error) {
+    return data;
+  } catch (error: any) {
     console.error("Error analyzing results:", error);
     throw error;
   }
@@ -95,12 +96,13 @@ async function executeGeneration(prompt: string): Promise<MCQ[]> {
       body: JSON.stringify({ prompt }),
     });
 
+    const data = await response.json();
     if (!response.ok) {
-      throw new Error("Failed to generate MCQs via backend");
+      throw new Error(data.error || "Failed to generate MCQs via backend");
     }
 
-    return await response.json();
-  } catch (error) {
+    return data;
+  } catch (error: any) {
     console.error("Error generating MCQs:", error);
     throw error;
   }
@@ -124,13 +126,14 @@ Focus on topics that appear frequently in UHS, SZABMU, and PMDC past papers.`;
       }),
     });
 
+    const data = await response.json();
     if (!response.ok) {
-      throw new Error("Failed to fetch suggested topics via backend");
+      throw new Error(data.error || "Failed to fetch suggested topics via backend");
     }
 
-    return await response.json();
-  } catch (error) {
+    return data;
+  } catch (error: any) {
     console.error("Error fetching suggested topics:", error);
-    return []; // Return empty array on error
+    throw error;
   }
 }
