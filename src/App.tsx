@@ -682,34 +682,34 @@ export default function App() {
 
   if (error && error.includes("Gemini API Key is missing")) {
     return (
-      <div className={`min-h-screen flex items-center justify-center p-4 ${isDarkMode ? 'bg-slate-950 text-slate-50' : 'bg-slate-50 text-slate-900'}`}>
-        <div className="max-w-md w-full bg-white dark:bg-slate-900 p-8 rounded-3xl shadow-xl border border-slate-200 dark:border-slate-800 text-center">
-          <div className="bg-amber-100 dark:bg-amber-900/30 p-4 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-6">
-            <AlertTriangle className="w-10 h-10 text-amber-600 dark:text-amber-400" />
+      <div className={`min-h-screen flex items-center justify-center p-4 ${isDarkMode ? 'bg-accent text-cream' : 'bg-cream text-accent'}`}>
+        <div className="max-w-md w-full bg-cream dark:bg-accent p-8 rounded-3xl shadow-xl border border-secondary/20 text-center">
+          <div className="bg-primary/10 dark:bg-primary/20 p-4 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-6">
+            <AlertTriangle className="w-10 h-10 text-primary" />
           </div>
           <h2 className="text-2xl font-bold mb-4">API Setup Required</h2>
-          <p className="text-slate-600 dark:text-slate-400 mb-8 leading-relaxed">
+          <p className="text-secondary/60 dark:text-secondary/40 mb-8 leading-relaxed">
             To use the AI features of MDCAT Master, you need to add your Gemini API key to the platform settings.
           </p>
           
           <div className="space-y-4 text-left mb-8">
             <div className="flex items-start space-x-3">
-              <div className="bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 font-bold text-xs">1</div>
-              <p className="text-sm">Go to <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer" className="text-indigo-600 hover:underline font-semibold">Google AI Studio</a> and copy your API key.</p>
+              <div className="bg-primary/10 dark:bg-primary/20 text-primary w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 font-bold text-xs">1</div>
+              <p className="text-sm">Go to <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-semibold">Google AI Studio</a> and copy your API key.</p>
             </div>
             <div className="flex items-start space-x-3">
-              <div className="bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 font-bold text-xs">2</div>
+              <div className="bg-primary/10 dark:bg-primary/20 text-primary w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 font-bold text-xs">2</div>
               <p className="text-sm">Open the <strong>Secrets</strong> or <strong>Settings</strong> panel in this AI Studio window.</p>
             </div>
             <div className="flex items-start space-x-3">
-              <div className="bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 font-bold text-xs">3</div>
+              <div className="bg-primary/10 dark:bg-primary/20 text-primary w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 font-bold text-xs">3</div>
               <p className="text-sm">Add a secret named <strong>GEMINI_API_KEY</strong> and paste your key.</p>
             </div>
           </div>
           
           <button 
             onClick={() => window.location.reload()}
-            className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-xl transition-all flex items-center justify-center space-x-2"
+            className="w-full bg-primary hover:bg-secondary text-white font-bold py-3 rounded-xl transition-all flex items-center justify-center space-x-2"
           >
             <RefreshCw className="w-5 h-5" />
             <span>I've added the key, Refresh</span>
@@ -720,7 +720,7 @@ export default function App() {
   }
 
   return (
-    <div className={`min-h-screen ${isDarkMode ? 'dark bg-slate-950 text-slate-50' : 'bg-slate-50 text-slate-900'} font-sans transition-colors duration-300`}>
+    <div className={`min-h-screen ${isDarkMode ? 'dark bg-accent text-cream' : 'bg-cream text-accent'} font-sans transition-colors duration-300`}>
       <FeedbackModal 
         isOpen={feedbackOpen} 
         onClose={() => setFeedbackOpen(false)} 
@@ -742,14 +742,14 @@ export default function App() {
       )}
       
       {/* Header */}
-      <header className="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 sticky top-0 z-10 transition-colors">
+      <header className="bg-cream dark:bg-accent border-b border-secondary/20 sticky top-0 z-10 transition-colors">
         <div className="max-w-5xl mx-auto px-4 h-16 flex items-center justify-between">
           <div className="flex items-center space-x-2">
-            <div className="bg-indigo-600 p-1.5 rounded-lg">
+            <div className="bg-primary p-1.5 rounded-lg">
               <GraduationCap className="w-6 h-6 text-white" />
             </div>
-            <h1 className="text-xl font-bold tracking-tight text-slate-900 dark:text-white">
-              MDCAT<span className="text-indigo-600">Master</span>
+            <h1 className="text-xl font-bold tracking-tight text-accent dark:text-cream">
+              MDCAT<span className="text-primary">Master</span>
             </h1>
           </div>
           
@@ -761,7 +761,7 @@ export default function App() {
                   setMcqs([]);
                   window.history.replaceState({}, '', window.location.pathname);
                 }}
-                className="text-sm font-semibold text-indigo-600 hover:text-indigo-700 flex items-center"
+                className="text-sm font-semibold text-primary hover:text-secondary flex items-center"
               >
                 <RefreshCw className="w-4 h-4 mr-1" />
                 New Paper
@@ -771,58 +771,58 @@ export default function App() {
               <div className="flex items-center space-x-4">
                 <button 
                   onClick={() => setIsDarkMode(!isDarkMode)}
-                  className="p-2 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-slate-800 rounded-xl transition-all"
+                  className="p-2 text-secondary/60 hover:text-primary hover:bg-primary/10 dark:hover:bg-accent/50 rounded-xl transition-all"
                 >
                   {isDarkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
                 </button>
                 <div className="hidden md:flex items-center space-x-2">
-                  <div className="flex items-center space-x-1.5 bg-orange-50 dark:bg-orange-900/20 px-3 py-1.5 rounded-full border border-orange-100 dark:border-orange-800">
-                    <Flame className="w-4 h-4 text-orange-500 fill-current" />
-                    <span className="text-sm font-bold text-orange-700 dark:text-orange-400">{userProfile?.streakDays || 0}</span>
+                  <div className="flex items-center space-x-1.5 bg-primary/10 dark:bg-primary/20 px-3 py-1.5 rounded-full border border-primary/20 dark:border-primary/40">
+                    <Flame className="w-4 h-4 text-primary fill-current" />
+                    <span className="text-sm font-bold text-secondary dark:text-cream/80">{userProfile?.streakDays || 0}</span>
                   </div>
-                  <div className="flex items-center space-x-1.5 bg-blue-50 dark:bg-blue-900/20 px-3 py-1.5 rounded-full border border-blue-100 dark:border-blue-800">
-                    <Star className="w-4 h-4 text-blue-500 fill-current" />
-                    <span className="text-sm font-bold text-blue-700 dark:text-blue-400">{userProfile?.totalPoints || 0}</span>
+                  <div className="flex items-center space-x-1.5 bg-secondary/10 dark:bg-secondary/20 px-3 py-1.5 rounded-full border border-secondary/20 dark:border-secondary/40">
+                    <Star className="w-4 h-4 text-secondary fill-current" />
+                    <span className="text-sm font-bold text-secondary dark:text-cream/80">{userProfile?.totalPoints || 0}</span>
                   </div>
-                  <div className="flex items-center space-x-1.5 bg-purple-50 dark:bg-purple-900/20 px-3 py-1.5 rounded-full border border-purple-100 dark:border-purple-800">
-                    <Trophy className="w-4 h-4 text-purple-500 fill-current" />
-                    <span className="text-sm font-bold text-purple-700 dark:text-purple-400">Lvl {userProfile?.level || 1}</span>
+                  <div className="flex items-center space-x-1.5 bg-accent/10 dark:bg-accent/20 px-3 py-1.5 rounded-full border border-accent/20 dark:border-accent/40">
+                    <Trophy className="w-4 h-4 text-accent dark:text-cream/80 fill-current" />
+                    <span className="text-sm font-bold text-secondary dark:text-cream/80">Lvl {userProfile?.level || 1}</span>
                   </div>
                 </div>
                 <button 
                   onClick={() => setShowSaved(!showSaved)}
-                  className="text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center"
+                  className="text-sm font-semibold text-secondary/60 dark:text-secondary/40 hover:text-primary dark:hover:text-secondary flex items-center"
                 >
                   <History className="w-4 h-4 mr-1" />
                   {showSaved ? "Back to Generator" : "Saved Papers"}
                 </button>
                 {mcqs.length > 0 && !showSaved && !analysis && !revisionPlan && (
-                  <div className="flex items-center space-x-2 border-l border-slate-200 dark:border-slate-800 pl-4 ml-4">
-                    <span className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Export</span>
+                  <div className="flex items-center space-x-2 border-l border-secondary/20 pl-4 ml-4">
+                    <span className="text-[10px] font-black text-secondary/40 dark:text-secondary/50 uppercase tracking-widest">Export</span>
                     <button 
                       onClick={() => handleExportQuiz('txt')}
-                      className="p-1.5 text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-slate-800 rounded-lg transition-all"
+                      className="p-1.5 text-secondary/50 dark:text-secondary/40 hover:text-primary dark:hover:text-secondary hover:bg-secondary/10 dark:hover:bg-accent/50 rounded-lg transition-all"
                       title="Download as TXT"
                     >
                       <Download className="w-4 h-4" />
                     </button>
                     <button 
                       onClick={() => handleExportQuiz('json')}
-                      className="p-1.5 text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-slate-800 rounded-lg transition-all"
+                      className="p-1.5 text-secondary/50 dark:text-secondary/40 hover:text-primary dark:hover:text-secondary hover:bg-secondary/10 dark:hover:bg-accent/50 rounded-lg transition-all"
                       title="Download as JSON"
                     >
                       <Share2 className="w-4 h-4" />
                     </button>
                   </div>
                 )}
-                <div className="h-8 w-px bg-slate-200 dark:bg-slate-800 hidden sm:block"></div>
+                <div className="h-8 w-px bg-secondary/20 dark:bg-accent/50 hidden sm:block"></div>
                 <div className="flex items-center space-x-2">
                   <NotificationCenter 
                     notifications={notifications} 
                     onClear={() => setNotifications([])} 
                   />
-                  <img src={user.photoURL || ''} alt="" className="w-8 h-8 rounded-full border border-slate-200 dark:border-slate-700" />
-                  <button onClick={handleLogout} className="text-slate-400 hover:text-rose-600 transition-colors">
+                  <img src={user.photoURL || ''} alt="" className="w-8 h-8 rounded-full border border-secondary/20 dark:border-accent/70" />
+                  <button onClick={handleLogout} className="text-secondary/40 hover:text-rose-600 transition-colors">
                     <LogOut className="w-5 h-5" />
                   </button>
                 </div>
@@ -831,13 +831,13 @@ export default function App() {
               <div className="flex items-center space-x-4">
                 <button 
                   onClick={() => setIsDarkMode(!isDarkMode)}
-                  className="p-2 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-slate-800 rounded-xl transition-all"
+                  className="p-2 text-secondary/40 hover:text-primary hover:bg-secondary/10 dark:hover:bg-accent/50 rounded-xl transition-all"
                 >
                   {isDarkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
                 </button>
                 <button 
                   onClick={handleLogin}
-                  className="flex items-center space-x-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-4 py-2 rounded-xl text-sm font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 transition-all"
+                  className="flex items-center space-x-2 bg-cream dark:bg-accent border border-secondary/20 px-4 py-2 rounded-xl text-sm font-bold text-accent dark:text-cream hover:bg-secondary/10 transition-all"
                 >
                   <LogIn className="w-4 h-4" />
                   <span>Login with Google</span>
@@ -866,25 +866,25 @@ export default function App() {
         ) : showSaved ? (
           <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
             <div className="flex items-center justify-between mb-8">
-              <h2 className="text-3xl font-extrabold text-slate-900">Your Saved Papers</h2>
-              <button onClick={() => setShowSaved(false)} className="text-indigo-600 font-bold hover:underline">
+              <h2 className="text-3xl font-extrabold text-accent dark:text-cream">Your Saved Papers</h2>
+              <button onClick={() => setShowSaved(false)} className="text-primary font-bold hover:underline">
                 Back to Generator
               </button>
             </div>
 
             {savedPapers.length === 0 ? (
-              <div className="text-center py-20 bg-white rounded-3xl border-2 border-dashed border-slate-200">
-                <History className="w-12 h-12 text-slate-200 mx-auto mb-4" />
-                <h3 className="text-lg font-bold text-slate-400">No saved papers found</h3>
-                <p className="text-slate-400 text-sm">Generate and save your first MDCAT paper to see it here.</p>
+              <div className="text-center py-20 bg-cream dark:bg-accent/50 rounded-3xl border-2 border-dashed border-secondary/20">
+                <History className="w-12 h-12 text-secondary/30 mx-auto mb-4" />
+                <h3 className="text-lg font-bold text-secondary/50">No saved papers found</h3>
+                <p className="text-secondary/40 text-sm">Generate and save your first MDCAT paper to see it here.</p>
               </div>
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 {savedPapers.map((paper) => (
-                  <div key={paper.id} className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-all group">
+                  <div key={paper.id} className="bg-cream dark:bg-accent/50 p-6 rounded-2xl border border-secondary/20 shadow-sm hover:shadow-md transition-all group">
                     <div className="flex justify-between items-start mb-4">
                       <div className="flex items-center space-x-2">
-                        <span className="px-3 py-1 bg-indigo-50 text-indigo-600 text-xs font-bold rounded-full uppercase tracking-wider">
+                        <span className="px-3 py-1 bg-secondary/10 text-primary text-xs font-bold rounded-full uppercase tracking-wider">
                           {paper.subject}
                         </span>
                         {paper.isPublic ? (
@@ -892,7 +892,7 @@ export default function App() {
                             <Globe className="w-3 h-3 mr-1" /> Public
                           </span>
                         ) : (
-                          <span className="flex items-center text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                          <span className="flex items-center text-[10px] font-bold text-secondary/40 uppercase tracking-widest">
                             <Lock className="w-3 h-3 mr-1" /> Private
                           </span>
                         )}
@@ -901,21 +901,21 @@ export default function App() {
                         <button 
                           onClick={() => handleExportPaper(paper)}
                           title="Export as Text"
-                          className="text-slate-300 hover:text-indigo-600 transition-colors opacity-0 group-hover:opacity-100"
+                          className="text-secondary/30 hover:text-primary transition-colors opacity-0 group-hover:opacity-100"
                         >
                           <Download className="w-4 h-4" />
                         </button>
                         <button 
                           onClick={() => handleDeletePaper(paper.id)}
                           title="Delete Paper"
-                          className="text-slate-300 hover:text-rose-500 transition-colors opacity-0 group-hover:opacity-100"
+                          className="text-secondary/30 hover:text-rose-500 transition-colors opacity-0 group-hover:opacity-100"
                         >
                           <Trash2 className="w-4 h-4" />
                         </button>
                       </div>
                     </div>
-                    <h3 className="text-xl font-bold text-slate-800 mb-2">{paper.topic}</h3>
-                    <div className="flex items-center text-slate-400 text-xs mb-6">
+                    <h3 className="text-xl font-bold text-accent dark:text-cream mb-2">{paper.topic}</h3>
+                    <div className="flex items-center text-secondary/60 text-xs mb-6">
                       <Calendar className="w-3 h-3 mr-1" />
                       {new Date(paper.createdAt).toLocaleDateString()}
                     </div>
@@ -923,7 +923,7 @@ export default function App() {
                     <div className="grid grid-cols-2 gap-3">
                       <button 
                         onClick={() => loadPaper(paper)}
-                        className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2.5 rounded-xl text-sm transition-all"
+                        className="bg-primary hover:bg-secondary text-white font-bold py-2.5 rounded-xl text-sm transition-all"
                       >
                         Review
                       </button>
@@ -931,8 +931,8 @@ export default function App() {
                         onClick={() => paper.isPublic ? handleCopyShareLink(paper) : handleTogglePublic(paper)}
                         className={`flex items-center justify-center font-bold py-2.5 rounded-xl text-sm transition-all border-2 ${
                           paper.isPublic 
-                            ? 'bg-white border-indigo-100 text-indigo-600 hover:bg-indigo-50' 
-                            : 'bg-white border-slate-100 text-slate-600 hover:border-indigo-200 hover:text-indigo-600'
+                            ? 'bg-cream dark:bg-accent border-secondary/20 text-primary hover:bg-secondary/10' 
+                            : 'bg-cream dark:bg-accent border-secondary/10 text-secondary hover:border-secondary/30 hover:text-primary'
                         }`}
                       >
                         {copied === paper.id ? (
@@ -954,10 +954,10 @@ export default function App() {
             {/* Hero / Intro */}
             {!sharedPaper && (
               <div className="mb-12 text-center">
-                <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-4">
+                <h2 className="text-3xl sm:text-4xl font-extrabold text-accent dark:text-cream mb-4">
                   Expert MDCAT Paper Setter
                 </h2>
-                <p className="text-slate-600 max-w-2xl mx-auto text-lg">
+                <p className="text-secondary max-w-2xl mx-auto text-lg">
                   Generate high-quality, conceptual MCQs based on real MDCAT patterns. 
                   Perfect for UHS, SZABMU, and PMDC exam preparation.
                 </p>
@@ -966,9 +966,9 @@ export default function App() {
 
             {/* Configuration Form */}
             {!sharedPaper && (
-              <div className="bg-white rounded-3xl shadow-xl shadow-indigo-100/50 border border-indigo-50 p-6 sm:p-8 mb-12">
+              <div className="bg-cream dark:bg-accent/50 rounded-3xl shadow-xl shadow-secondary/10 border border-secondary/20 p-6 sm:p-8 mb-12">
                 {/* Mode Selector */}
-                <div className="flex p-1 bg-slate-100 rounded-2xl mb-8 w-fit mx-auto">
+                <div className="flex p-1 bg-secondary/5 rounded-2xl mb-8 w-fit mx-auto">
                   {(["Topic Practice", "Full Exam"] as AppMode[]).map((m) => (
                     <button
                       key={m}
@@ -980,8 +980,8 @@ export default function App() {
                       }}
                       className={`px-6 py-2.5 rounded-xl text-sm font-bold transition-all ${
                         mode === m 
-                          ? 'bg-white text-indigo-600 shadow-sm' 
-                          : 'text-slate-500 hover:text-slate-700'
+                          ? 'bg-cream dark:bg-accent text-primary shadow-sm' 
+                          : 'text-secondary/60 hover:text-secondary'
                       }`}
                     >
                       {m}
@@ -992,23 +992,23 @@ export default function App() {
                 <form onSubmit={handleGenerate} className="space-y-8">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
-                      <label className="text-sm font-bold text-slate-500 uppercase tracking-wider flex items-center">
+                      <label className="text-sm font-bold text-secondary/50 uppercase tracking-wider flex items-center">
                         <BookOpen className="w-4 h-4 mr-2" /> Subject
                       </label>
                       <select
                         value={subject}
                         onChange={(e) => setSubject(e.target.value as Subject)}
-                        className="w-full bg-slate-50 border-2 border-slate-100 rounded-xl px-4 py-3 focus:border-indigo-500 focus:ring-0 transition-all outline-none font-medium"
+                        className="w-full bg-secondary/5 dark:bg-accent/30 border-2 border-secondary/10 dark:border-secondary/5 rounded-xl px-4 py-3 focus:border-primary focus:ring-0 transition-all outline-none font-medium text-accent dark:text-cream"
                       >
                         {Object.values(Subject).map((s) => (
-                          <option key={s} value={s}>{s}</option>
+                          <option key={s} value={s} className="bg-cream dark:bg-accent text-accent dark:text-cream">{s}</option>
                         ))}
                       </select>
                     </div>
 
                     {mode === "Topic Practice" ? (
                       <div className="space-y-2">
-                        <label className="text-sm font-bold text-slate-500 uppercase tracking-wider flex items-center">
+                        <label className="text-sm font-bold text-secondary/60 uppercase tracking-wider flex items-center">
                           <Sparkles className="w-4 h-4 mr-2" /> Topic
                         </label>
                         <input
@@ -1016,13 +1016,13 @@ export default function App() {
                           value={topic}
                           onChange={(e) => setTopic(e.target.value)}
                           placeholder="e.g. Genetics, Thermodynamics..."
-                          className="w-full bg-slate-50 border-2 border-slate-100 rounded-xl px-4 py-3 focus:border-indigo-500 focus:ring-0 transition-all outline-none font-medium"
+                          className="w-full bg-secondary/5 dark:bg-accent/30 border-2 border-secondary/10 dark:border-secondary/5 rounded-xl px-4 py-3 focus:border-primary focus:ring-0 transition-all outline-none font-medium text-accent dark:text-cream"
                           required
                         />
                       </div>
                     ) : (
                       <div className="space-y-2">
-                        <label className="text-sm font-bold text-slate-500 uppercase tracking-wider flex items-center">
+                        <label className="text-sm font-bold text-secondary/60 uppercase tracking-wider flex items-center">
                           <Settings2 className="w-4 h-4 mr-2" /> Question Count
                         </label>
                         <div className="flex items-center space-x-4">
@@ -1032,9 +1032,9 @@ export default function App() {
                             onChange={(e) => setQuestionCount(parseInt(e.target.value) || 1)}
                             min="1"
                             max="100"
-                            className="w-full bg-slate-50 border-2 border-slate-100 rounded-xl px-4 py-3 focus:border-indigo-500 focus:ring-0 transition-all outline-none font-medium"
+                            className="w-full bg-secondary/5 dark:bg-accent/30 border-2 border-secondary/10 dark:border-secondary/5 rounded-xl px-4 py-3 focus:border-primary focus:ring-0 transition-all outline-none font-medium text-accent dark:text-cream"
                           />
-                          <span className="text-xs font-bold text-slate-400 whitespace-nowrap">
+                          <span className="text-xs font-bold text-secondary/40 whitespace-nowrap">
                             (Std: {SUBJECT_DEFAULTS[subject]})
                           </span>
                         </div>
@@ -1044,11 +1044,11 @@ export default function App() {
 
                   <div className="space-y-4">
                     <div className="flex items-center justify-between">
-                      <label className="text-sm font-bold text-slate-500 uppercase tracking-wider flex items-center">
-                        <BarChart className="w-4 h-4 mr-2" /> Difficulty: <span className="ml-2 text-indigo-600">{difficulty}</span>
+                      <label className="text-sm font-bold text-secondary/60 uppercase tracking-wider flex items-center">
+                        <BarChart className="w-4 h-4 mr-2" /> Difficulty: <span className="ml-2 text-primary">{difficulty}</span>
                       </label>
                     </div>
-                    <div className="relative h-2 bg-slate-100 rounded-full">
+                    <div className="relative h-2 bg-secondary/10 rounded-full">
                       <input
                         type="range"
                         min="0"
@@ -1059,18 +1059,18 @@ export default function App() {
                         className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
                       />
                       <div 
-                        className="absolute inset-y-0 left-0 bg-indigo-600 rounded-full transition-all duration-300"
+                        className="absolute inset-y-0 left-0 bg-primary rounded-full transition-all duration-300"
                         style={{ width: `${(DIFFICULTIES.indexOf(difficulty) / 3) * 100}%` }}
                       ></div>
                       <div className="absolute inset-0 flex justify-between px-1">
                         {DIFFICULTIES.map((d, i) => (
-                          <div key={d} className={`w-1 h-1 rounded-full mt-0.5 ${i <= DIFFICULTIES.indexOf(difficulty) ? 'bg-white' : 'bg-slate-300'}`}></div>
+                          <div key={d} className={`w-1 h-1 rounded-full mt-0.5 ${i <= DIFFICULTIES.indexOf(difficulty) ? 'bg-cream' : 'bg-secondary/30'}`}></div>
                         ))}
                       </div>
                     </div>
-                    <div className="flex justify-between text-[10px] font-bold text-slate-400 uppercase tracking-widest px-1">
+                    <div className="flex justify-between text-[10px] font-bold text-secondary/40 uppercase tracking-widest px-1">
                       {DIFFICULTIES.map((d) => (
-                        <span key={d} className={difficulty === d ? 'text-indigo-600' : ''}>{d}</span>
+                        <span key={d} className={difficulty === d ? 'text-primary' : ''}>{d}</span>
                       ))}
                     </div>
                   </div>
@@ -1078,7 +1078,7 @@ export default function App() {
                   <button
                     type="submit"
                     disabled={loading}
-                    className="w-full bg-indigo-600 hover:bg-indigo-700 disabled:bg-indigo-400 text-white font-bold py-4 px-6 rounded-xl shadow-lg shadow-indigo-200 flex items-center justify-center transition-all active:scale-95"
+                    className="w-full bg-primary hover:bg-secondary disabled:bg-primary/40 text-white font-bold py-4 px-6 rounded-xl shadow-lg shadow-primary/20 flex items-center justify-center transition-all active:scale-95"
                   >
                     {loading ? (
                       <>
@@ -1096,9 +1096,9 @@ export default function App() {
 
                 {/* Suggested Topics */}
                 {mode === "Topic Practice" && (
-                  <div className="mt-8 pt-8 border-t border-slate-100">
-                    <div className="flex items-center text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">
-                      <Lightbulb className="w-3 h-3 mr-1.5 text-amber-500" />
+                  <div className="mt-8 pt-8 border-t border-secondary/10">
+                    <div className="flex items-center text-xs font-bold text-secondary/40 uppercase tracking-wider mb-3">
+                      <Lightbulb className="w-3 h-3 mr-1.5 text-primary" />
                       Suggested High-Yield Topics
                       {loadingSuggestions && <Loader2 className="w-3 h-3 ml-2 animate-spin" />}
                     </div>
@@ -1107,13 +1107,13 @@ export default function App() {
                         <button
                           key={idx}
                           onClick={() => setTopic(t)}
-                          className="px-3 py-1.5 bg-slate-50 hover:bg-indigo-50 border border-slate-100 hover:border-indigo-200 rounded-lg text-xs font-medium text-slate-600 hover:text-indigo-600 transition-all"
+                          className="px-3 py-1.5 bg-secondary/5 hover:bg-secondary/10 border border-secondary/10 hover:border-secondary/20 rounded-lg text-xs font-medium text-secondary/60 hover:text-primary transition-all"
                         >
                           {t}
                         </button>
                       ))}
                       {!loadingSuggestions && suggestedTopics.length === 0 && (
-                        <p className="text-xs text-slate-400 italic">No suggestions available for this subject.</p>
+                        <p className="text-xs text-secondary/40 italic">No suggestions available for this subject.</p>
                       )}
                     </div>
                   </div>
@@ -1123,14 +1123,14 @@ export default function App() {
 
             {/* Shared Paper Banner */}
             {sharedPaper && (
-              <div className="bg-indigo-600 text-white p-6 rounded-3xl mb-12 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-lg shadow-indigo-200">
+              <div className="bg-primary text-white p-6 rounded-3xl mb-12 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-lg shadow-primary/20">
                 <div className="flex items-center">
                   <div className="bg-white/20 p-3 rounded-2xl mr-4">
                     <Share2 className="w-6 h-6" />
                   </div>
                   <div>
                     <h2 className="text-xl font-bold">Shared Practice Paper</h2>
-                    <p className="text-indigo-100 text-sm">You are viewing a paper shared with you.</p>
+                    <p className="text-cream/80 text-sm">You are viewing a paper shared with you.</p>
                   </div>
                 </div>
                 <button 
@@ -1139,7 +1139,7 @@ export default function App() {
                     setMcqs([]);
                     window.history.replaceState({}, '', window.location.pathname);
                   }}
-                  className="bg-white text-indigo-600 px-6 py-2.5 rounded-xl font-bold text-sm hover:bg-indigo-50 transition-all"
+                  className="bg-cream text-primary px-6 py-2.5 rounded-xl font-bold text-sm hover:bg-secondary/10 transition-all"
                 >
                   Create Your Own
                 </button>
@@ -1161,9 +1161,9 @@ export default function App() {
             {mcqs.length > 0 && (
               <div className="space-y-8 animate-in fade-in duration-700">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
-                  <h3 className="text-2xl font-bold text-slate-800 flex items-center flex-wrap gap-2">
+                   <h3 className="text-2xl font-bold text-accent dark:text-cream flex items-center flex-wrap gap-2">
                     {mode === "Full Exam" ? "Full Length Exam" : "Generated MCQs"}
-                    <span className="text-sm font-normal text-slate-400 bg-slate-100 px-3 py-1 rounded-full">
+                    <span className="text-sm font-normal text-secondary/60 bg-secondary/10 px-3 py-1 rounded-full">
                       {subject}{mode === "Topic Practice" ? `: ${topic}` : ''} ({difficulty})
                     </span>
                   </h3>
@@ -1171,7 +1171,7 @@ export default function App() {
                   <div className="flex items-center space-x-3">
                     {timeLeft !== null && (
                       <div className={`flex items-center px-4 py-2 rounded-xl text-sm font-bold border-2 transition-all ${
-                        timeLeft < 300 ? 'bg-rose-50 border-rose-200 text-rose-600 animate-pulse' : 'bg-indigo-50 border-indigo-100 text-indigo-600'
+                        timeLeft < 300 ? 'bg-rose-500/10 border-rose-500/20 text-rose-600 animate-pulse' : 'bg-secondary/10 border-secondary/20 text-primary'
                       }`}>
                         <Timer className="w-4 h-4 mr-2" />
                         {formatTime(timeLeft)}
@@ -1179,7 +1179,7 @@ export default function App() {
                     )}
                     <button 
                       onClick={() => handleExportPaper({ subject, topic: mode === "Full Exam" ? "Full Exam" : topic, mcqs })}
-                      className="flex items-center px-4 py-2 bg-white border-2 border-slate-100 hover:border-indigo-200 text-slate-600 hover:text-indigo-600 rounded-xl text-sm font-bold transition-all shadow-sm"
+                      className="flex items-center px-4 py-2 bg-cream dark:bg-accent border-2 border-secondary/10 hover:border-secondary/30 text-secondary hover:text-primary rounded-xl text-sm font-bold transition-all shadow-sm"
                     >
                       <Download className="w-4 h-4 mr-2" />
                       Export
@@ -1194,7 +1194,7 @@ export default function App() {
                         {sharedPaper ? "Save to My Papers" : "Save Paper"}
                       </button>
                     ) : (
-                      <p className="text-xs text-slate-400 max-w-[150px] text-right">
+                      <p className="text-xs text-secondary/40 max-w-[150px] text-right">
                         Login to save this paper.
                       </p>
                     )}
@@ -1218,7 +1218,7 @@ export default function App() {
                     <button
                       onClick={handleAnalyze}
                       disabled={analyzing}
-                      className="bg-indigo-600 hover:bg-indigo-700 disabled:bg-indigo-400 text-white font-bold py-4 px-12 rounded-2xl shadow-xl shadow-indigo-200 flex items-center transition-all active:scale-95"
+                      className="bg-primary hover:bg-secondary disabled:bg-primary/40 text-white font-bold py-4 px-12 rounded-2xl shadow-xl shadow-primary/20 flex items-center transition-all active:scale-95"
                     >
                       {analyzing ? (
                         <>
@@ -1239,29 +1239,29 @@ export default function App() {
 
             {/* Empty State */}
             {!loading && mcqs.length === 0 && !error && (
-              <div className="text-center py-20 bg-white rounded-3xl border-2 border-dashed border-slate-200">
-                <div className="bg-slate-50 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                  <BookOpen className="w-8 h-8 text-slate-300" />
+              <div className="text-center py-20 bg-cream dark:bg-accent/50 rounded-3xl border-2 border-dashed border-secondary/20">
+                <div className="bg-secondary/5 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                  <BookOpen className="w-8 h-8 text-secondary/30" />
                 </div>
-                <h3 className="text-lg font-bold text-slate-400">No MCQs generated yet</h3>
-                <p className="text-slate-400 text-sm">Select a subject and enter a topic to begin.</p>
+                <h3 className="text-lg font-bold text-secondary/40">No MCQs generated yet</h3>
+                <p className="text-secondary/40 text-sm">Select a subject and enter a topic to begin.</p>
               </div>
             )}
           </>
         )}
       </main>
 
-      <footer className="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-12 mt-20">
+      <footer className="bg-cream dark:bg-accent border-t border-secondary/20 py-12 mt-20">
         <div className="max-w-5xl mx-auto px-4 text-center">
           <div className="flex flex-col items-center space-y-4">
             <button 
               onClick={handleGeneralFeedback}
-              className="flex items-center text-indigo-600 font-bold hover:text-indigo-700 transition-colors"
+              className="flex items-center text-primary font-bold hover:text-secondary transition-colors"
             >
               <MessageSquare className="w-4 h-4 mr-2" />
               Send Feedback or Suggestion
             </button>
-            <p className="text-slate-500 text-sm">
+            <p className="text-secondary/60 text-sm">
               &copy; {new Date().getFullYear()} MDCAT Master. Built for Pakistani Medical Aspirants.
             </p>
           </div>

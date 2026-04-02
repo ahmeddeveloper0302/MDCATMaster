@@ -31,22 +31,22 @@ export const MCQCard: React.FC<MCQCardProps> = ({ mcq, index, onReportIssue, onA
   const isCorrect = selectedOption === mcq.answer;
 
   return (
-    <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden transition-all hover:shadow-md mb-6">
+    <div className="bg-cream dark:bg-accent rounded-2xl border border-secondary/20 shadow-sm overflow-hidden transition-all hover:shadow-md mb-6">
       <div className="p-6">
         <div className="flex items-start justify-between mb-4">
-          <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-indigo-100 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-400 font-bold text-sm">
+          <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-primary/10 text-primary font-bold text-sm">
             {index + 1}
           </span>
           <div className="flex items-center space-x-2">
             {mcq.isRepeatedConcept && (
-              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-100 dark:bg-amber-900/30 text-amber-800 dark:text-amber-400">
+              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/10 dark:bg-primary/20 text-primary">
                 <AlertCircle className="w-3 h-3 mr-1" />
                 Frequently Repeated
               </span>
             )}
             <button 
               onClick={() => onReportIssue?.(mcq.id)}
-              className="p-1.5 text-slate-300 dark:text-slate-600 hover:text-rose-500 transition-colors"
+              className="p-1.5 text-secondary/30 hover:text-rose-500 transition-colors"
               title="Report an issue with this question"
             >
               <AlertCircle className="w-4 h-4" />
@@ -54,7 +54,7 @@ export const MCQCard: React.FC<MCQCardProps> = ({ mcq, index, onReportIssue, onA
           </div>
         </div>
 
-        <h3 className="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-6 leading-relaxed">
+        <h3 className="text-lg font-semibold text-accent dark:text-cream mb-6 leading-relaxed">
           {mcq.question}
         </h3>
 
@@ -66,14 +66,14 @@ export const MCQCard: React.FC<MCQCardProps> = ({ mcq, index, onReportIssue, onA
             let optionStyles = "relative flex items-center p-4 rounded-xl border-2 transition-all cursor-pointer text-left";
             
             if (!selectedOption) {
-              optionStyles = cn(optionStyles, "border-slate-100 dark:border-slate-800 hover:border-indigo-200 dark:hover:border-indigo-800 hover:bg-indigo-50/30 dark:hover:bg-indigo-900/10 text-slate-700 dark:text-slate-300");
+              optionStyles = cn(optionStyles, "border-secondary/10 dark:border-secondary/5 hover:border-primary/50 hover:bg-primary/5 text-accent dark:text-cream/80");
             } else {
               if (isAnswer) {
                 optionStyles = cn(optionStyles, "border-emerald-500 bg-emerald-50 dark:bg-emerald-900/20 text-emerald-900 dark:text-emerald-400");
               } else if (isSelected && !isAnswer) {
                 optionStyles = cn(optionStyles, "border-rose-500 bg-rose-50 dark:bg-rose-900/20 text-rose-900 dark:text-rose-400");
               } else {
-                optionStyles = cn(optionStyles, "border-slate-100 dark:border-slate-800 opacity-50 text-slate-500 dark:text-slate-600");
+                optionStyles = cn(optionStyles, "border-secondary/10 dark:border-secondary/5 opacity-50 text-secondary/60");
               }
             }
 
@@ -86,9 +86,9 @@ export const MCQCard: React.FC<MCQCardProps> = ({ mcq, index, onReportIssue, onA
               >
                 <span className={cn(
                   "flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-lg font-bold mr-4 text-sm",
-                  !selectedOption ? "bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400" : 
+                  !selectedOption ? "bg-secondary/10 text-secondary/60" : 
                   isAnswer ? "bg-emerald-500 text-white" :
-                  isSelected ? "bg-rose-500 text-white" : "bg-slate-100 dark:bg-slate-800 text-slate-400 dark:text-slate-600"
+                  isSelected ? "bg-rose-500 text-white" : "bg-secondary/10 text-secondary/40"
                 )}>
                   {key}
                 </span>
@@ -101,10 +101,10 @@ export const MCQCard: React.FC<MCQCardProps> = ({ mcq, index, onReportIssue, onA
         </div>
 
         {selectedOption && (
-          <div className="mt-6 pt-6 border-t border-slate-100 dark:border-slate-800">
+          <div className="mt-6 pt-6 border-t border-secondary/10">
             <button
               onClick={() => setShowExplanation(!showExplanation)}
-              className="flex items-center text-sm font-semibold text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 transition-colors"
+              className="flex items-center text-sm font-semibold text-primary hover:text-secondary transition-colors"
             >
               <Info className="w-4 h-4 mr-2" />
               {showExplanation ? "Hide Explanation" : "Show Explanation"}
@@ -112,16 +112,16 @@ export const MCQCard: React.FC<MCQCardProps> = ({ mcq, index, onReportIssue, onA
             </button>
 
             {showExplanation && (
-              <div className="mt-4 p-4 bg-slate-50 dark:bg-slate-800/50 rounded-xl animate-in fade-in slide-in-from-top-2 duration-300">
+              <div className="mt-4 p-4 bg-secondary/5 dark:bg-accent/30 rounded-xl animate-in fade-in slide-in-from-top-2 duration-300">
                 <div className="mb-3">
-                  <span className="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">Explanation</span>
-                  <p className="mt-1 text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                  <span className="text-xs font-bold uppercase tracking-wider text-secondary/40">Explanation</span>
+                  <p className="mt-1 text-secondary/80 text-sm leading-relaxed">
                     {mcq.explanation}
                   </p>
                 </div>
                 <div>
-                  <span className="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">Reference</span>
-                  <p className="mt-1 text-indigo-600 dark:text-indigo-400 font-medium text-xs italic">
+                  <span className="text-xs font-bold uppercase tracking-wider text-secondary/40">Reference</span>
+                  <p className="mt-1 text-primary font-medium text-xs italic">
                     {mcq.pastPaperReference}
                   </p>
                 </div>

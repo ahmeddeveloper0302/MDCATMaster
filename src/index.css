@@ -3,14 +3,19 @@
 
 @theme {
   --font-sans: "Outfit", "Inter", ui-sans-serif, system-ui, sans-serif;
+  
+  --color-primary: #FFC570;
+  --color-secondary: #547792;
+  --color-accent: #1A3263;
+  --color-cream: #EFD2B0;
 }
 
 @layer base {
   body {
-    @apply bg-slate-50 text-slate-900 transition-colors duration-300;
+    @apply bg-[--color-cream] text-[--color-accent] transition-colors duration-300;
   }
   .dark body {
-    @apply bg-slate-950 text-slate-50;
+    @apply bg-[--color-accent] text-[--color-cream];
   }
 }
 

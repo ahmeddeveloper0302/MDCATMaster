@@ -53,18 +53,18 @@ export const FeedbackModal: React.FC<FeedbackModalProps> = ({ isOpen, onClose, m
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-sm animate-in fade-in duration-300">
-      <div className="bg-white dark:bg-slate-900 rounded-3xl w-full max-w-md shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300 border border-slate-200 dark:border-slate-800">
-        <div className="p-6 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-accent/50 backdrop-blur-sm animate-in fade-in duration-300">
+      <div className="bg-cream dark:bg-accent rounded-3xl w-full max-w-md shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300 border border-secondary/20">
+        <div className="p-6 border-b border-secondary/10 flex items-center justify-between">
           <div className="flex items-center space-x-2">
-            <div className="bg-indigo-100 dark:bg-indigo-900/30 p-2 rounded-xl">
-              <MessageSquare className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
+            <div className="bg-primary/10 p-2 rounded-xl">
+              <MessageSquare className="w-5 h-5 text-primary" />
             </div>
-            <h2 className="text-xl font-bold text-slate-800 dark:text-white">
+            <h2 className="text-xl font-bold text-accent dark:text-cream">
               {mcqId ? 'Report an Issue' : 'Send Feedback'}
             </h2>
           </div>
-          <button onClick={onClose} className="text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300 transition-colors">
+          <button onClick={onClose} className="text-secondary/40 hover:text-primary transition-colors">
             <X className="w-6 h-6" />
           </button>
         </div>
@@ -74,19 +74,19 @@ export const FeedbackModal: React.FC<FeedbackModalProps> = ({ isOpen, onClose, m
             <div className="bg-emerald-100 dark:bg-emerald-900/30 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
               <Send className="w-8 h-8 text-emerald-600 dark:text-emerald-400" />
             </div>
-            <h3 className="text-xl font-bold text-slate-800 dark:text-white mb-2">Thank You!</h3>
-            <p className="text-slate-500 dark:text-slate-400">Your feedback helps us improve MDCAT Master.</p>
+            <h3 className="text-xl font-bold text-accent dark:text-cream mb-2">Thank You!</h3>
+            <p className="text-secondary/60">Your feedback helps us improve MDCAT Master.</p>
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="p-6 space-y-6">
             <div className="space-y-3">
-              <label className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">Feedback Type</label>
+              <label className="text-xs font-bold text-secondary/40 uppercase tracking-widest">Feedback Type</label>
               <div className="grid grid-cols-3 gap-3">
                 <button
                   type="button"
                   onClick={() => setType('issue')}
                   className={`flex flex-col items-center justify-center p-3 rounded-2xl border-2 transition-all ${
-                    type === 'issue' ? 'border-indigo-600 bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400' : 'border-slate-100 dark:border-slate-800 text-slate-400 dark:text-slate-500 hover:border-indigo-200 dark:hover:border-indigo-800'
+                    type === 'issue' ? 'border-primary bg-secondary/10 text-primary' : 'border-secondary/10 text-secondary/40 hover:border-primary/30'
                   }`}
                 >
                   <AlertCircle className="w-5 h-5 mb-1" />
@@ -96,7 +96,7 @@ export const FeedbackModal: React.FC<FeedbackModalProps> = ({ isOpen, onClose, m
                   type="button"
                   onClick={() => setType('suggestion')}
                   className={`flex flex-col items-center justify-center p-3 rounded-2xl border-2 transition-all ${
-                    type === 'suggestion' ? 'border-indigo-600 bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400' : 'border-slate-100 dark:border-slate-800 text-slate-400 dark:text-slate-500 hover:border-indigo-200 dark:hover:border-indigo-800'
+                    type === 'suggestion' ? 'border-primary bg-secondary/10 text-primary' : 'border-secondary/10 text-secondary/40 hover:border-primary/30'
                   }`}
                 >
                   <Lightbulb className="w-5 h-5 mb-1" />
@@ -106,7 +106,7 @@ export const FeedbackModal: React.FC<FeedbackModalProps> = ({ isOpen, onClose, m
                   type="button"
                   onClick={() => setType('other')}
                   className={`flex flex-col items-center justify-center p-3 rounded-2xl border-2 transition-all ${
-                    type === 'other' ? 'border-indigo-600 bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400' : 'border-slate-100 dark:border-slate-800 text-slate-400 dark:text-slate-500 hover:border-indigo-200 dark:hover:border-indigo-800'
+                    type === 'other' ? 'border-primary bg-secondary/10 text-primary' : 'border-secondary/10 text-secondary/40 hover:border-primary/30'
                   }`}
                 >
                   <MessageSquare className="w-5 h-5 mb-1" />
@@ -116,14 +116,14 @@ export const FeedbackModal: React.FC<FeedbackModalProps> = ({ isOpen, onClose, m
             </div>
 
             <div className="space-y-2">
-              <label className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">
+              <label className="text-xs font-bold text-secondary/40 uppercase tracking-widest">
                 {type === 'issue' ? 'Describe the problem' : 'Your message'}
               </label>
               <textarea
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
                 placeholder={type === 'issue' ? 'e.g. The answer is wrong, or the explanation is unclear...' : 'Tell us how we can improve...'}
-                className="w-full bg-slate-50 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-800 rounded-2xl p-4 min-h-[120px] focus:border-indigo-500 focus:ring-0 transition-all outline-none text-slate-700 dark:text-slate-200 font-medium"
+                className="w-full bg-secondary/5 dark:bg-accent/30 border-2 border-secondary/10 dark:border-secondary/5 rounded-2xl p-4 min-h-[120px] focus:border-primary focus:ring-0 transition-all outline-none text-accent dark:text-cream font-medium"
                 required
               />
             </div>
@@ -131,7 +131,7 @@ export const FeedbackModal: React.FC<FeedbackModalProps> = ({ isOpen, onClose, m
             <button
               type="submit"
               disabled={submitting || !content.trim()}
-              className="w-full bg-indigo-600 hover:bg-indigo-700 disabled:bg-indigo-400 text-white font-bold py-4 rounded-2xl shadow-lg shadow-indigo-200 dark:shadow-none flex items-center justify-center transition-all active:scale-95"
+              className="w-full bg-primary hover:bg-secondary disabled:bg-primary/40 text-white font-bold py-4 rounded-2xl shadow-lg shadow-primary/20 flex items-center justify-center transition-all active:scale-95"
             >
               {submitting ? (
                 <>

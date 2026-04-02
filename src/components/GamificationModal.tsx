@@ -16,16 +16,16 @@ export const GamificationModal: React.FC<GamificationModalProps> = ({ update, on
           initial={{ scale: 0.9, opacity: 0, y: 20 }}
           animate={{ scale: 1, opacity: 1, y: 0 }}
           exit={{ scale: 0.9, opacity: 0, y: 20 }}
-          className="bg-white dark:bg-slate-900 rounded-[2.5rem] shadow-2xl max-w-lg w-full overflow-hidden relative border border-white/20 dark:border-slate-800"
+          className="bg-cream dark:bg-accent rounded-[2.5rem] shadow-2xl max-w-lg w-full overflow-hidden relative border border-secondary/10"
         >
           {/* Decorative background elements */}
-          <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-br from-indigo-600 to-purple-600 opacity-10" />
+          <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-br from-primary to-secondary opacity-10" />
           
           <button
             onClick={onClose}
-            className="absolute top-6 right-6 p-2 hover:bg-gray-100 dark:hover:bg-slate-800 rounded-full transition-colors z-10"
+            className="absolute top-6 right-6 p-2 hover:bg-secondary/10 rounded-full transition-colors z-10"
           >
-            <X className="w-6 h-6 text-gray-400 dark:text-slate-500" />
+            <X className="w-6 h-6 text-secondary/40" />
           </button>
 
           <div className="p-10">
@@ -34,33 +34,33 @@ export const GamificationModal: React.FC<GamificationModalProps> = ({ update, on
                 initial={{ rotate: -10, scale: 0.8 }}
                 animate={{ rotate: 0, scale: 1 }}
                 transition={{ type: "spring", damping: 12 }}
-                className="bg-indigo-600 p-6 rounded-3xl shadow-xl shadow-indigo-200 dark:shadow-none mb-6"
+                className="bg-primary p-6 rounded-3xl shadow-xl shadow-primary/20 mb-6"
               >
                 <Award className="w-16 h-16 text-white" />
               </motion.div>
               
-              <h2 className="text-4xl font-black text-gray-900 dark:text-white tracking-tight mb-2">
+              <h2 className="text-4xl font-black text-accent dark:text-cream tracking-tight mb-2">
                 Level Up!
               </h2>
-              <p className="text-indigo-600 dark:text-indigo-400 font-bold text-lg uppercase tracking-widest">
+              <p className="text-primary font-bold text-lg uppercase tracking-widest">
                 Level {update.level} Achieved
               </p>
             </div>
 
             <div className="grid grid-cols-2 gap-4 mb-8">
-              <div className="bg-slate-50 dark:bg-slate-800 p-6 rounded-3xl border border-slate-100 dark:border-slate-700">
-                <span className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest block mb-1">Total XP</span>
-                <span className="text-3xl font-black text-slate-900 dark:text-white">{update.XP}</span>
+              <div className="bg-secondary/5 dark:bg-accent/50 p-6 rounded-3xl border border-secondary/10">
+                <span className="text-xs font-bold text-secondary/40 uppercase tracking-widest block mb-1">Total XP</span>
+                <span className="text-3xl font-black text-accent dark:text-cream">{update.XP}</span>
               </div>
-              <div className="bg-slate-50 dark:bg-slate-800 p-6 rounded-3xl border border-slate-100 dark:border-slate-700">
-                <span className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest block mb-1">Badges</span>
-                <span className="text-3xl font-black text-slate-900 dark:text-white">{update.earned_badges.length}</span>
+              <div className="bg-secondary/5 dark:bg-accent/50 p-6 rounded-3xl border border-secondary/10">
+                <span className="text-xs font-bold text-secondary/40 uppercase tracking-widest block mb-1">Badges</span>
+                <span className="text-3xl font-black text-accent dark:text-cream">{update.earned_badges.length}</span>
               </div>
             </div>
 
             <div className="mb-8">
-              <h3 className="text-sm font-bold text-gray-400 dark:text-slate-500 uppercase tracking-widest mb-4 flex items-center gap-2">
-                <Sparkles className="w-4 h-4 text-yellow-500" />
+              <h3 className="text-sm font-bold text-secondary/40 uppercase tracking-widest mb-4 flex items-center gap-2">
+                <Sparkles className="w-4 h-4 text-primary" />
                 Newly Earned Badges
               </h3>
               <div className="flex flex-wrap gap-2">
@@ -70,7 +70,7 @@ export const GamificationModal: React.FC<GamificationModalProps> = ({ update, on
                     initial={{ x: -10, opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
                     transition={{ delay: 0.1 * idx }}
-                    className="bg-indigo-50 dark:bg-indigo-900/20 text-indigo-700 dark:text-indigo-300 px-4 py-2 rounded-xl font-bold text-sm border border-indigo-100 dark:border-indigo-800"
+                    className="bg-secondary/10 text-primary px-4 py-2 rounded-xl font-bold text-sm border border-secondary/10"
                   >
                     {badge}
                   </motion.span>
@@ -78,7 +78,7 @@ export const GamificationModal: React.FC<GamificationModalProps> = ({ update, on
               </div>
             </div>
 
-            <div className="bg-indigo-900 rounded-3xl p-6 mb-8 text-white relative overflow-hidden">
+            <div className="bg-accent rounded-3xl p-6 mb-8 text-white relative overflow-hidden">
               <div className="relative z-10">
                 <div className="flex items-center gap-2 mb-2 opacity-80">
                   <TrendingUp className="w-4 h-4" />
@@ -91,13 +91,13 @@ export const GamificationModal: React.FC<GamificationModalProps> = ({ update, on
               <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16 blur-2xl" />
             </div>
 
-            <p className="text-gray-500 dark:text-slate-400 text-center italic mb-8 font-medium">
+            <p className="text-secondary/60 text-center italic mb-8 font-medium">
               "{update.message}"
             </p>
 
             <button
               onClick={onClose}
-              className="w-full bg-indigo-600 text-white py-5 rounded-[1.5rem] font-black text-xl hover:bg-indigo-700 transition-all shadow-xl shadow-indigo-100 dark:shadow-none flex items-center justify-center gap-2 group"
+              className="w-full bg-primary text-white py-5 rounded-[1.5rem] font-black text-xl hover:bg-secondary transition-all shadow-xl shadow-primary/20 flex items-center justify-center gap-2 group"
             >
               Continue Journey
               <ChevronRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
